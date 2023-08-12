@@ -1,13 +1,14 @@
 # CompiGo Documentation
 
 ## TODO
-- [ ] add: comments
-- [ ] add: math things (+-)
 - [ ] add: types
     - [ ] structs/objects
     - [ ] maps
     - [ ] generics
-
+- [ ] array things
+    - [ ] insert
+    - [ ] remove
+    - [ ] length (lua like `#`)
 
 ## File
 
@@ -24,6 +25,30 @@ main => {
     // print "Hello, world!"
     println("Hello, world!")
 }
+```
+
+
+## Comments
+```c
+// one line comment
+
+/*
+    multi-line
+    comment
+*/
+```
+
+
+## Operators
+```cg
+// change
++  -  /  *  %
+
+// compare
+==  !=  <  >  <=  >=
+
+// assign
++=  -=  *=  /=  ++  --
 ```
 
 
@@ -143,4 +168,20 @@ for mut i := 0; i < 5; i++ {
 for key, value in <u8>[7, 10, 6] {
     // ...
 }
+```
+
+
+## Pointers
+```cg
+// create empty pointer and allocate memory
+var ptr: *i8
+
+// change value of pointer
+*ptr = 10
+
+// read value of pointer
+*ptr
+
+// get address from variable
+&variable
 ```
