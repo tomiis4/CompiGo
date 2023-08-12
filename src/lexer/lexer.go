@@ -1,7 +1,6 @@
 package lexer
 
 import (
-	"fmt"
 	"regexp"
 )
 
@@ -26,36 +25,37 @@ const (
 )
 
 type Token struct {
-	kind  string
-	value string
+	Kind  string
+	Value string
 }
 
-func removeComments(sPtr *string) *string {
-    rLine := regexp.MustCompile(`\/\/.*$`)
-    rMultiline := regexp.MustCompile(`(\/\*)(.*)(\*\/)`)
+func removeComments(input string) string {
+	lineRegex := regexp.MustCompile(`\/\/.*$`)
+	multilineRegex := regexp.MustCompile(`\/\*.*?\*\/`)
 
-    s1 := rLine.ReplaceAllString(*sPtr, "")
-    s2 := rMultiline.ReplaceAllString(s1, "")
-    return &s2
+	return multilineRegex.ReplaceAllString(
+		lineRegex.ReplaceAllString(input, ""),
+		"")
 }
 
-/*
+func getTokens(content string) []string {
+	tokenRegex := regexp.MustCompile(`("[^"]*"|[^\s"]+)`)
+	tokens := tokenRegex.FindAllString(content, -1)
 
-loop letter by letter
+	return tokens
+}
 
-*/
+func Lexer(content string) []Token {
+	content = removeComments(content)
 
-// TODO: add error handling (wrong syntax)
-func Lexer(content string) {
-    content = *removeComments(&content)
+	tokens := getTokens(content)
+	tokenObjects := []Token{}
 
-	tokens := []Token{}
-	currentToken := Token{}
-    fmt.Println(content)
-    fmt.Println(tokens, currentToken)
-
-	// for i := 0; i < len(content); i++ {
-	// 	char := string(content[i])
-	// 	fmt.Println(char)
-	// }
+	for _, tk := range tokens {
+		tokenObjects = append(tokenObjects, Token{
+			Kind:  "TODO",
+			Value: tk,
+		})
+	}
+	return tokenObjects
 }
