@@ -39,6 +39,7 @@ func removeComments(input string) string {
 }
 
 func getTokens(content string) []string {
+    // FIXME: does not split characters, example: function{
 	tokenRegex := regexp.MustCompile(`("[^"]*"|[^\s"]+)`)
 	tokens := tokenRegex.FindAllString(content, -1)
 

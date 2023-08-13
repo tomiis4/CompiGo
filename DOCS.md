@@ -3,6 +3,7 @@
 ## TODO
 - [ ] add: types
     - [ ] structs/objects
+    - [ ] custom type
     - [ ] maps
     - [ ] generics
 - [ ] array things
