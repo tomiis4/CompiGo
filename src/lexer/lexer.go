@@ -2,26 +2,36 @@ package lexer
 
 import (
 	"regexp"
+	"slices"
 )
 
 type Array = []string
 
-var keywords = Array{
-	"use", "var", "mut", "return", "type",
-	"if", "elseif", "else", "for", "break",
-	"contiune", "in"}
-var symbols = Array{
-	"(", ")", "[", "]", "{", "}", "<", ">",
-	".", ",", "=", "==", "<=", ">=", "!=",
-	"+=", "-=", "*=", "/=", "+", "-", "*",
-	"/", "++", "--"}
+var (
+	keywords = Array{
+		"use", "var", "mut", "return", "type",
+		"if", "elseif", "else", "for", "break",
+		"contiune", "in",
+	}
+
+	symbols = Array{
+		"(", ")", "[", "]", "{", "}", "<", ">",
+		".", ",", "=", "==", "<=", ">=", "!=",
+		"+=", "-=", "*=", "/=", "=>", "+", "-",
+        "*", "/", "++", "--", "#"
+	}
+
+	NumberRegex = regexp.MustCompile(`^-?\d+$`)
+	StringRegex = regexp.MustCompile(`^".*"$`)
+)
 
 const (
 	Keyword       = "keyword"
 	Identifier    = "identifier"
 	Symbol        = "symbol"
 	NumberLiteral = "NumberLiteral"
-	stringLiteral = "StringLiteral"
+	StringLiteral = "StringLiteral"
+	Undefined     = "undefined"
 )
 
 type Token struct {
@@ -29,32 +39,38 @@ type Token struct {
 	Value string
 }
 
-func removeComments(input string) string {
-	lineRegex := regexp.MustCompile(`\/\/.*$`)
-	multilineRegex := regexp.MustCompile(`\/\*.*?\*\/`)
-
-	return multilineRegex.ReplaceAllString(
-		lineRegex.ReplaceAllString(input, ""),
-		"")
-}
-
 func getTokens(content string) []string {
-    // FIXME: does not split characters, example: function{
-	tokenRegex := regexp.MustCompile(`("[^"]*"|[^\s"]+)`)
+	// REGEX: 1) "[^"]+"   == match string
+	//        2) \w+       == match full words
+	//        3) [^\s\w"]+ == match any character which is not space/word
+	tokenRegex := regexp.MustCompile(`("[^"]*"|\w+|[^\s\w"]+)`)
 	tokens := tokenRegex.FindAllString(content, -1)
 
 	return tokens
 }
 
-func Lexer(content string) []Token {
-	content = removeComments(content)
+func getKind(tk string) string {
+	if slices.Contains(keywords, tk) {
+		return Keyword
+	} else if slices.Contains(symbols, tk) {
+		return Symbol
+	} else if NumberRegex.Match([]byte(tk)) {
+		return NumberLiteral
+	} else if StringRegex.Match([]byte(tk)) {
+		return StringLiteral
+	}
 
+    return Identifier
+}
+
+// TODO: handle comments
+func Lexer(content string) []Token {
 	tokens := getTokens(content)
 	tokenObjects := []Token{}
 
 	for _, tk := range tokens {
 		tokenObjects = append(tokenObjects, Token{
-			Kind:  "TODO",
+			Kind:  getKind(tk),
 			Value: tk,
 		})
 	}

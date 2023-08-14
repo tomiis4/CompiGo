@@ -8,7 +8,12 @@ import (
 func main() {
     content := map[string]string{
         "var": "var name: i32 = 610 // init variable",
-        "function": "main => { /* comment */ }",
+        "function": "main => { \nprint(\"Test\")\n/*\n comment */\n }",
     }
-    fmt.Println(l.Lexer(content["function"]))
+
+    x := l.Lexer(content["function"])
+
+    for _, v := range x {
+        fmt.Println(v.Kind, v.Value) 
+    }
 }
