@@ -21,7 +21,7 @@ var (
         "+", "-", "*", "/", "#", ":",
 	}
 
-	NumberRegex = regexp.MustCompile(`^-?\d+$`)
+	NumberRegex = regexp.MustCompile(`^-?\d*\.?\d+$`)
 	StringRegex = regexp.MustCompile(`^".*"$`)
 )
 
@@ -30,6 +30,7 @@ const (
 	Identifier    = "identifier"
 	Symbol        = "symbol"
 	NumberLiteral = "NumberLiteral"
+	BooleanLiteral = "BooleanLiteral"
 	StringLiteral = "StringLiteral"
 )
 
@@ -58,6 +59,8 @@ func getKind(tk string) string {
 		return NumberLiteral
 	} else if StringRegex.Match([]byte(tk)) {
 		return StringLiteral
+	} else if tk == "true" || tk == "false" {
+		return BooleanLiteral
 	}
 
 	return Identifier
