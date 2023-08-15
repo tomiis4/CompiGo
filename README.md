@@ -5,9 +5,15 @@
 </p>
 <h1>CompiGo: Fast and Simple programming language</h1>
 
-[Docs](#) | [Changelog](#) | [Speed](#)
+[Docs](https://github.com/tomiis4/tree/main/DOCS.md) | [Changelog](#) | [Speed](#)
 
 </div>
+
+
+## Todo
+- [ ] error handling (syntax, type..)
+- [x] lexer
+- [ ] AST
 
 
 ## Installation
