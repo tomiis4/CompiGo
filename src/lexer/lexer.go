@@ -17,8 +17,8 @@ var (
 	symbols = Array{
 		"(", ")", "[", "]", "{", "}", "<", ">",
 		".", ",", "=", "==", "<=", ">=", "!=",
-		"+=", "-=", "*=", "/=", "=>", "+", "-",
-        "*", "/", "++", "--", "#"
+        "+=", "-=", "*=", "/=", "=>", ":=",
+        "+", "-", "*", "/", "#", ":",
 	}
 
 	NumberRegex = regexp.MustCompile(`^-?\d+$`)
@@ -31,7 +31,6 @@ const (
 	Symbol        = "symbol"
 	NumberLiteral = "NumberLiteral"
 	StringLiteral = "StringLiteral"
-	Undefined     = "undefined"
 )
 
 type Token struct {
@@ -40,10 +39,11 @@ type Token struct {
 }
 
 func getTokens(content string) []string {
-	// REGEX: 1) "[^"]+"   == match string
-	//        2) \w+       == match full words
-	//        3) [^\s\w"]+ == match any character which is not space/word
-	tokenRegex := regexp.MustCompile(`("[^"]*"|\w+|[^\s\w"]+)`)
+	// REGEX: 1) "[^"]*"     == match string
+	//        2) \w+         == match full words
+    //        2) (?:\S?=\S?) == match things like -=, =>
+	//        3) [^\s\w"]    == match any character which is not space/word
+	tokenRegex := regexp.MustCompile(`("[^"]*"|\w+|(?:\S?=\S?)|[^\s\w"])`)
 	tokens := tokenRegex.FindAllString(content, -1)
 
 	return tokens
@@ -60,7 +60,7 @@ func getKind(tk string) string {
 		return StringLiteral
 	}
 
-    return Identifier
+	return Identifier
 }
 
 // TODO: handle comments
