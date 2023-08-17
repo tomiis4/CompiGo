@@ -17,8 +17,8 @@ var (
 	symbols = Array{
 		"(", ")", "[", "]", "{", "}", "<", ">",
 		".", ",", "=", "==", "<=", ">=", "!=",
-        "+=", "-=", "*=", "/=", "=>", ":=",
-        "+", "-", "*", "/", "#", ":",
+		"+=", "-=", "*=", "/=", "=>", ":=",
+		"+", "-", "*", "/", "#", ":",
 	}
 
 	NumberRegex = regexp.MustCompile(`^-?\d*\.?\d+$`)
@@ -26,12 +26,12 @@ var (
 )
 
 const (
-	Keyword       = "keyword"
-	Identifier    = "identifier"
-	Symbol        = "symbol"
-	NumberLiteral = "NumberLiteral"
+	Keyword        = "keyword"
+	Identifier     = "identifier"
+	Symbol         = "symbol"
+	NumberLiteral  = "NumberLiteral"
 	BooleanLiteral = "BooleanLiteral"
-	StringLiteral = "StringLiteral"
+	StringLiteral  = "StringLiteral"
 )
 
 type Token struct {
@@ -42,7 +42,7 @@ type Token struct {
 func getTokens(content string) []string {
 	// REGEX: 1) "[^"]*"     == match string
 	//        2) \w+         == match full words
-    //        2) (?:\S?=\S?) == match things like -=, =>
+	//        2) (?:\S?=\S?) == match things like -=, =>
 	//        3) [^\s\w"]    == match any character which is not space/word
 	tokenRegex := regexp.MustCompile(`("[^"]*"|\w+|(?:\S?=\S?)|[^\s\w"])`)
 	tokens := tokenRegex.FindAllString(content, -1)
