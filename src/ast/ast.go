@@ -5,30 +5,39 @@ import (
 	l "tomiis4/compigo/lexer"
 )
 
-type Declaration struct {
-	Type       string
-	Identifier string
-	Assignment string
-}
-
-type Statement struct {
-	Declarations Declaration
-}
-
 type Block struct {
-	Statements []Statement
+    // TODO
+    // declarations
+    // assigments
+    // if/else things
+}
+
+type Assignment struct {
+	Left  string
+	Right string
 }
 
 type Function struct {
-	Name   string
-	Return string
-	Block  Block
+    Name string
+    ReturnType string
+    Block Block
+}
+
+type Import struct {
+    Package string
+    Name string
+}
+
+type Declaration struct {
+	Scope      string
+	Type       string
+	Identifier string
 }
 
 type Tree struct {
-	// imports
-	// declarations
-	Functions []Function
+	Imports      []Import
+	Declarations []Declaration
+	Functions    []Function
 }
 
 func Ast(tokens []l.Token) {
