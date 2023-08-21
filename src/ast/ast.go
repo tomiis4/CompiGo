@@ -5,11 +5,12 @@ import (
 	l "tomiis4/compigo/lexer"
 )
 
-type Block struct {
-    // TODO
-    // declarations
-    // assigments
-    // if/else things
+type Block interface{}
+
+type Statement struct {
+	Type      string
+	Condition string // FIXME
+	Block     []Block
 }
 
 type Assignment struct {
@@ -18,14 +19,14 @@ type Assignment struct {
 }
 
 type Function struct {
-    Name string
-    ReturnType string
-    Block Block
+	Name       string
+	ReturnType string
+	Block      []Block // assiegment, declaration, statement
 }
 
 type Import struct {
-    Package string
-    Name string
+	Package string
+	Name    string
 }
 
 type Declaration struct {
