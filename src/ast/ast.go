@@ -14,8 +14,8 @@ type Statement struct {
 }
 
 type Assignment struct {
-	Left  string
-	Right string
+	Left  []string
+	Right []string
 }
 
 type Function struct {
@@ -42,8 +42,25 @@ type Tree struct {
 }
 
 func Ast(tokens []l.Token) {
-	fmt.Println("Hello, world")
 	fmt.Println(tokens)
+
+    tree := Tree{
+        Functions: []Function{{
+            Name: "main",
+            ReturnType: "nil",
+            Block: []Block{
+                Declaration{
+                    Scope: "main",
+                    Type: "<string>",
+                    Identifier: "arr",
+                },
+                Assignment{
+                    Left: []string{"arr"},
+                    Right: []string{"Hello", "world"},
+                },
+            },
+        }},
+    }
 }
 
 // ast.Program{
