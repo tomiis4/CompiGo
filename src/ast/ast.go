@@ -5,81 +5,74 @@ import (
 	l "tomiis4/compigo/lexer"
 )
 
+// TODO
+//  - add if statements
+//  - add loops
+//  - add assignments
+
 type Block interface{}
 
-type Statement struct {
-	Type      string
-	Condition string // FIXME
-	Block     []Block
+type Value struct {
+    Type string
+    Value string
 }
 
-type Assignment struct {
-	Left  []string
-	Right []string
+type Parameter struct {
+    Name string
+    Type string
 }
 
-type Function struct {
-	Name       string
-	ReturnType string
-	Block      []Block // assiegment, declaration, statement
+type VarDeclaration struct {
+    Name string
+    Mutal bool
+    Value []Value
+}
+
+type FuncCall struct {
+    Name string
+    Arguments []string
+}
+
+type FuncDeclaration struct {
+    Name string
+    Parameters []Parameter
+    Body Block
 }
 
 type Import struct {
-	Package string
-	Name    string
-}
-
-type Declaration struct {
-	Scope      string
-	Type       string
-	Identifier string
+    Package string
+    Name string
 }
 
 type Tree struct {
 	Imports      []Import
-	Declarations []Declaration
-	Functions    []Function
+    FuncDeclarations []FuncDeclaration
+    
+    //TODO: VarDeclarations []Declaration
 }
+
+// (function_declaration) ; [1:1 - 4:3]
+//  name: (identifier) ; [1:10 - 13]
+//  parameters: (parameters) ; [1:14 - 15]
+//  body: (block) ; [2:5 - 3:24]
+//   local_declaration: (variable_declaration) ; [2:5 - 24]
+//    (assignment_statement) ; [2:11 - 24]
+//     (variable_list) ; [2:11 - 11]
+//      name: (identifier) ; [2:11 - 11]
+//     (expression_list) ; [2:15 - 24]
+//      value: (table_constructor) ; [2:15 - 24]
+//       (field) ; [2:16 - 18]
+//        value: (string) ; [2:16 - 18]
+//         content: (string_content) ; [2:17 - 17]
+//       (field) ; [2:21 - 23]
+//        value: (string) ; [2:21 - 23]
+//         content: (string_content) ; [2:22 - 22]
+//   (function_call) ; [3:5 - 24]
+//    name: (identifier) ; [3:5 - 9]
+//    arguments: (arguments) ; [3:10 - 24]
+//     (string) ; [3:11 - 23]
+//      content: (string_content) ; [3:12 - 22]
 
 func Ast(tokens []l.Token) {
-	fmt.Println(tokens)
-
-    tree := Tree{
-        Functions: []Function{{
-            Name: "main",
-            ReturnType: "nil",
-            Block: []Block{
-                Declaration{
-                    Scope: "main",
-                    Type: "<string>",
-                    Identifier: "arr",
-                },
-                Assignment{
-                    Left: []string{"arr"},
-                    Right: []string{"Hello", "world"},
-                },
-            },
-        }},
-    }
+    fmt.Println(tokens)
 }
-
-// ast.Program{
-//         Functions: []ast.FunctionDeclaration{
-//             {
-//                 Name:       "main",
-//                 ReturnType: "int",
-//                 Block: ast.Block{
-//                     Statements: []ast.Statement{
-//                         ast.VariableDeclaration{
-//                             Type:       "int",
-//                             Identifier: "i",
-//                         },
-//                         ast.Assignment{
-//                             Left:  ast.VariableReference{Name: "i"},
-//                             Right: ast.IntegerLiteral{Value: 5},
-//                         },
-//                     },
-//                 },
-//             },
-//         },
-//     }
