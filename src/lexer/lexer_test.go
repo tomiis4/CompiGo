@@ -1,8 +1,6 @@
 package lexer
 
-import (
-	"testing"
-)
+import "testing"
 
 func tok(kind, value string) Token {
 	return Token{Kind: kind, Value: value}

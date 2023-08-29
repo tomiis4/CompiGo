@@ -24,9 +24,10 @@ This project is NOT production ready.
 
 
 ## Todo
-- [ ] error handling (syntax, type..)
 - [x] lexer
-- [ ] AST
+- [ ] parser (AST)
+- [ ] semantic validation
+- [ ] optimization
 
 
 ## Contributors
