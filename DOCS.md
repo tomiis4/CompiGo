@@ -23,7 +23,7 @@ cg run file.cg
 ```cg
 // create main function
 main => {
-    // print "Hello, world!"
+    // print "Hello, world!" to console
     println("Hello, world!")
 }
 ```

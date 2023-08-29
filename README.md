@@ -5,19 +5,28 @@
 </p>
 <h1>CompiGo: Fast and Simple programming language</h1>
 
-[Docs](https://github.com/tomiis4/tree/main/DOCS.md) | [Changelog](#) | [Speed](#)
+[Docs](https://github.com/tomiis4/blob/main/DOCS.md) | [Changelog](#) | [Speed](#)
 
 </div>
+
+
+## Preview
+```cg
+// simple hello world program
+main => {
+    println("Hello, world!")
+}
+```
+
+
+## Installation
+This project is NOT production ready.
 
 
 ## Todo
 - [ ] error handling (syntax, type..)
 - [x] lexer
 - [ ] AST
-
-
-## Installation
-This project is NOT production ready.
 
 
 ## Contributors

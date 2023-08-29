@@ -3,7 +3,7 @@ package main
 import (
 	// "fmt"
 	l "tomiis4/compigo/lexer"
-	a "tomiis4/compigo/ast"
+	p "tomiis4/compigo/parser"
 )
 
 func main() {
@@ -18,8 +18,8 @@ func main() {
 	}
 
 	tokens := l.Lexer(content["function"])
+	p.Parser(tokens)
 
-    a.Ast(tokens)
 	// for _, v := range tokens {
 	// 	fmt.Println(v.Kind, v.Value)
 	// }

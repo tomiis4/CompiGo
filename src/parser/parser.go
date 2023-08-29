@@ -1,4 +1,4 @@
-package ast
+package parser
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 )
 
 // TODO
+//  - separate file for structs
 //  - add loops
 //  - add assignment (objects)
 
@@ -79,6 +80,6 @@ type Tree struct {
 	VarDeclarations  []VarDeclaration
 }
 
-func Ast(tokens []l.Token) {
+func Parser(tokens []l.Token) {
 	fmt.Println(tokens)
 }
