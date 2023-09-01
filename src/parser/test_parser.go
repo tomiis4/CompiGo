@@ -3,8 +3,8 @@ package main
 import "fmt"
 
 const (
-	NumberLiteral string
-	Symbol        string
+	NumberLiteral = "NumberLiteral"
+	Symbol        = "Symbol"
 )
 
 type Token struct {
@@ -12,13 +12,12 @@ type Token struct {
 	Value string
 }
 
-type ExprInterface interface{}
-
-type Expr struct {
-    Left NumberLiteral
-    Right ExprInterface // +-/*  ||  NumberLiteral 
+type Node struct {
+	Operator Symbol
+	Left     Node
+	Right    Node
+	Value    NumberLiteral
 }
-
 
 func main() {
 	// 5 + 4 * 2
@@ -30,25 +29,29 @@ func main() {
 		Token{Value: "2", Kind: NumberLiteral},
 	}
 
+	ast := Node{
+		Operator: "+",
+		Left: Node{
+			Value: "5",
+		},
+		Right: Node{
+			Operator: "*",
+			Left: Node{
+				Value: "4",
+			},
+			Right: Node{
+				Value: "2",
+			},
+		},
+	}
 
-    /*
-
-    EXPRESSION: 
-
-      +
-     / \
-    5  *
-      / \
-     4   2
-
-    Expr   -> Expr + Term
-        | Term
-
-    Term   -> Term * Factor
-        | Factor
-
-    Factor -> NumberLiteral
-        | ( Expr )
-
-    */
+    temp_node := []Node{}
+    for _, v := range tokens {
+        if temp_node.Left == nil && v.Kind == NumberLiteral {
+            temp_node.Left = v.Value
+        } else if temp_node.Right == nil && v.Kind == NumberLiteral {
+            temp_node.Right = v.Value
+        }
+        // } else if temp_node.Operator == 
+    }
 }
