@@ -19,6 +19,10 @@ type Node struct {
 	Value    NumberLiteral
 }
 
+// TODO: add grammar like
+// add: number + node|number
+// multiply: number * node|number
+
 func main() {
 	// 5 + 4 * 2
 	tokens := []Token{
@@ -44,14 +48,4 @@ func main() {
 			},
 		},
 	}
-
-    temp_node := []Node{}
-    for _, v := range tokens {
-        if temp_node.Left == nil && v.Kind == NumberLiteral {
-            temp_node.Left = v.Value
-        } else if temp_node.Right == nil && v.Kind == NumberLiteral {
-            temp_node.Right = v.Value
-        }
-        // } else if temp_node.Operator == 
-    }
 }
